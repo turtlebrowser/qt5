@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      BUILD_DIR: "${{ github.workspace }}/build"
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -15,8 +17,8 @@ jobs:
         run: git submodule update --init --recursive
 
       - name: Make builddir 
-        run: mkdir ${{ env.GITHUB_WORKSPACE }}/build
+        run: mkdir ${{ env.BUILD_DIR }}
 
       - name: Configure Qt
-        working-directory: ${{ env.GITHUB_WORKSPACE }}/build
+        working-directory: ${{ env.BUILD_DIR }}
         run: ${{ env.GITHUB_WORKSPACE }}/qt5/configure -opensource -confirm-license -nomake examples -nomake tests -release -platform linux-clang-libc++
