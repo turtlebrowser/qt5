@@ -14,7 +14,9 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: PWD
-        run: pwd
+        run: |
+          pwd
+          echo ${{ github.workspace }}/qt5
 
       - name: Make builddir 
         run: mkdir ${{ env.BUILD_DIR }}
