@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-10.15] # ubuntu-18.04, ubuntu-20.04, macos-10.15, windows-2019, ubuntu-20.04
+        os: [ubuntu-18.04, ubuntu-20.04, macos-10.15] # ubuntu-18.04, ubuntu-20.04, macos-10.15, windows-2019, ubuntu-20.04
 
     runs-on: ${{ matrix.os }}
     env:
@@ -15,52 +15,53 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
-      - name: PWD
-        run: |
-          pwd
-          echo ${{ github.workspace }}
 
-      - name: Make builddir 
+      - name: "[All] Make builddir"
         run: mkdir ${{ env.BUILD_DIR }}
         
         # Debian Dependencies
         # https://wiki.qt.io/Building_Qt_5_from_Git
 
-      - name: Add Qt Source Dependencies
+      - name: "[Linux] Add Qt Source Dependencies"
         if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'
         run: |
           sudo sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list
           sudo apt-get update
           sudo apt-get build-dep qt5-default
 
-      - name: Add Libxcb Dependencies
+      - name: "[Linux] Add Libxcb Dependencies"
         if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'
         run: |
           sudo apt-get install '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev
 
-      - name: Add Qt WebEngine Dependencies
+      - name: "[Linux] Add Qt WebEngine Dependencies"
         if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'
         run: |
           sudo apt-get install libssl-dev libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libdbus-1-dev libfontconfig1-dev libcap-dev libxtst-dev libpulse-dev libudev-dev libpci-dev libnss3-dev libasound2-dev libxss-dev libegl1-mesa-dev gperf bison
 
-      - name: Add Qt Multimedia Dependencies - using GStreamer 1.0
+      - name: "[Linux] Add Qt Multimedia Dependencies - using GStreamer 1.0"
         if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'
         run: |
           sudo apt-get install libasound2-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
 
-      - name: Add QDoc Documentation Generator Tool Dependencies
+      - name: "[Linux] Add QDoc Documentation Generator Tool Dependencies"
         if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'
         run: |
           sudo apt install libclang-6.0-dev llvm-6.0
 
-      - name: Update submodules 
+      - name: "[All] Update submodules"
         run: git submodule update --init --recursive
 
-      - name: Configure Qt
+      - name: "[Linux] Configure Qt"
+        if: matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04'
         working-directory: ${{ env.BUILD_DIR }}
         run: ${{ github.workspace }}/configure -opensource -confirm-license -nomake examples -nomake tests -release -platform linux-clang-libc++
 
-      - name: Build Qt
+      - name: "[Mac] Configure Qt"
+        if: matrix.os == 'macos-10.15'
+        working-directory: ${{ env.BUILD_DIR }}
+        run: ${{ github.workspace }}/configure -opensource -confirm-license -nomake examples -nomake tests -release  -no-framework -platform macx-clang
+
+      - name: "[All] Build Qt"
         working-directory: ${{ env.BUILD_DIR }}
         run: make -j 4
