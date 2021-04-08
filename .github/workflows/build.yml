@@ -2,10 +2,14 @@ name: Build Qt
 
 on:
   workflow_dispatch:
-
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04] # ubuntu-18.04, macos-10.15, windows-2019, ubuntu-20.04
+
+    runs-on: ${{ matrix.os }}
     env:
       BUILD_DIR: "${{ github.workspace }}/../build"
 
