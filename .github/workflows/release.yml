@@ -37,10 +37,9 @@ jobs:
 
       - name: Upload artifact     
         uses: actions/upload-artifact@v2
-        working-directory: ${{ env.WORK_DIR }}
         with:
           name: ${{ github.event.inputs.archive_name }}.tar.xz
-          path: ${{ github.event.inputs.archive_name }}.tar.xz
+          path: ${{ env.WORK_DIR }}/${{ github.event.inputs.archive_name }}.tar.xz
 
       - name: Create Release
         working-directory: ${{ env.WORK_DIR }}
