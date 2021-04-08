@@ -27,6 +27,9 @@ jobs:
           cd git-archive-all
           git checkout 1.23.0
 
+      - name: "[All] Update submodules"
+        run: git submodule update --init --recursive
+
       - name: Make archive 
         run: ../git-archive-all/git_archive_all.py -v --force-submodules ${{ github.event.inputs.archive_name }}.tar.xz
 
