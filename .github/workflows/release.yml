@@ -35,9 +35,9 @@ jobs:
         run: tar --exclude-vcs -cJfv qt-everywhere-src-5.15.2.tar.xz ./qt5
  #       run: ../git-archive-all/git_archive_all.py -v --force-submodules ${{ github.event.inputs.archive_name }}.tar.xz
 
-      - name: Upload artifact
-        working-directory: ${{ env.WORK_DIR }}
+      - name: Upload artifact     
         uses: actions/upload-artifact@v2
+        working-directory: ${{ env.WORK_DIR }}
         with:
           name: ${{ github.event.inputs.archive_name }}.tar.xz
           path: ${{ github.event.inputs.archive_name }}.tar.xz
