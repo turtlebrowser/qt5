@@ -15,7 +15,7 @@ jobs:
         run: git submodule update --init --recursive
 
       - name: Make builddir 
-        run: ${{ env.GITHUB_WORKSPACE }}/build
+        run: mkdir ${{ env.GITHUB_WORKSPACE }}/build
 
       - name: Configure Qt
         working-directory: ${{ env.GITHUB_WORKSPACE }}/build
