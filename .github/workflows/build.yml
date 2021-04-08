@@ -60,3 +60,7 @@ jobs:
       - name: Configure Qt
         working-directory: ${{ env.BUILD_DIR }}
         run: ${{ github.workspace }}/configure -opensource -confirm-license -nomake examples -nomake tests -release -platform linux-clang-libc++
+
+      - name: Build Qt
+        working-directory: ${{ env.BUILD_DIR }}
+        run: make -j 4
