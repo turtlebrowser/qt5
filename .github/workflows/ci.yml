@@ -1,5 +1,5 @@
 
-name: CI
+name: Check Submodule Consistency
 
 on:
   push:
