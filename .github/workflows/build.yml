@@ -18,5 +18,5 @@ jobs:
         run: ${{ env.GITHUB_WORKSPACE }}/build
 
       - name: Configure Qt
-        working-directory: ${{ env.GITHUB_WORKSPACE }/build
+        working-directory: ${{ env.GITHUB_WORKSPACE }}/build
         run: ${{ env.GITHUB_WORKSPACE }}/qt5/configure -opensource -confirm-license -nomake examples -nomake tests -release -platform linux-clang-libc++
