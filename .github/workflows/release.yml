@@ -32,7 +32,7 @@ jobs:
 
       - name: Make archive
         working-directory: ${{ env.WORK_DIR }}
-        run: tar --exclude-vcs -cJfv qt-everywhere-src-5.15.2.tar.xz ./qt5
+        run: tar --exclude-vcs -cJf qt-everywhere-src-5.15.2.tar.xz ./qt5
  #       run: ../git-archive-all/git_archive_all.py -v --force-submodules ${{ github.event.inputs.archive_name }}.tar.xz
 
       - name: Upload artifact     
