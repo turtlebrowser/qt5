@@ -12,6 +12,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
+      - name: PWD
+        run: pwd
 
       - name: Make builddir 
         run: mkdir ${{ env.BUILD_DIR }}
@@ -21,4 +24,4 @@ jobs:
 
       - name: Configure Qt
         working-directory: ${{ env.BUILD_DIR }}
-        run: ${{ env.GITHUB_WORKSPACE }}/qt5/configure -opensource -confirm-license -nomake examples -nomake tests -release -platform linux-clang-libc++
+        run: ${{ github.workspace }}/qt5/configure -opensource -confirm-license -nomake examples -nomake tests -release -platform linux-clang-libc++
