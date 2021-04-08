@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      BUILD_DIR: "${{ github.workspace }}/build"
+      BUILD_DIR: "${{ github.workspace }}/../build"
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -16,7 +16,7 @@ jobs:
       - name: PWD
         run: |
           pwd
-          echo ${{ github.workspace }}/qt5
+          echo ${{ github.workspace }}
 
       - name: Make builddir 
         run: mkdir ${{ env.BUILD_DIR }}
@@ -26,4 +26,4 @@ jobs:
 
       - name: Configure Qt
         working-directory: ${{ env.BUILD_DIR }}
-        run: ${{ github.workspace }}/qt5/configure -opensource -confirm-license -nomake examples -nomake tests -release -platform linux-clang-libc++
+        run: ${{ github.workspace }}/configure -opensource -confirm-license -nomake examples -nomake tests -release -platform linux-clang-libc++
