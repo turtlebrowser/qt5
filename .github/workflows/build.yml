@@ -15,8 +15,8 @@ jobs:
         run: git submodule update --init --recursive
 
       - name: Make builddir 
-        run: ${{ env.GITHUB_WORKSPACE }/build
+        run: ${{ env.GITHUB_WORKSPACE }}/build
 
       - name: Configure Qt
         working-directory: ${{ env.GITHUB_WORKSPACE }/build
-        run: ${{ env.GITHUB_WORKSPACE }/qt5/configure -opensource -confirm-license -nomake examples -nomake tests -release -platform linux-clang-libc++
+        run: ${{ env.GITHUB_WORKSPACE }}/qt5/configure -opensource -confirm-license -nomake examples -nomake tests -release -platform linux-clang-libc++
