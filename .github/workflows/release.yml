@@ -15,7 +15,7 @@ jobs:
   make_archive:
     runs-on: ubuntu-latest
     env:
-      WORK_DIR: "${{ github.workspace }}/.."
+      WORK_DIR: "$HOME"
 
     steps:
       - uses: actions/checkout@v2
