@@ -37,4 +37,4 @@ jobs:
         run: echo "Hello ${{ github.event.inputs.name }}"
 
       - name: Make archive 
-        run: ../git-archive-all/git_archive_all.py -v --force-submodules archive_name
+        run: ../git-archive-all/git_archive_all.py -v --force-submodules archive_name.tar.gz
